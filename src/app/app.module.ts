@@ -12,7 +12,6 @@ import { ResourceModule } from './resource/resource.module';
 import { ConfigService } from './shared/config.service';
 import { SharedModule } from './shared/shared.module';
 import { ShellModule } from './shell/shell.module';
-import { TopSecretModule } from './top-secret/top-secret.module';
 
 @NgModule({
   declarations: [
@@ -20,16 +19,15 @@ import { TopSecretModule } from './top-secret/top-secret.module';
     AuthCallbackComponent
   ],
   imports: [
-    BrowserModule,  
-    HttpClientModule, 
+    BrowserModule,
+    HttpClientModule,
     CoreModule,
     HomeModule,
     AccountModule,
-    TopSecretModule,
-    ResourceModule, 
+    ResourceModule,
     AppRoutingModule,
-    ShellModule,   
-    SharedModule    
+    ShellModule,
+    SharedModule
   ],
   providers: [
     ConfigService,

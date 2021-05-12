@@ -1,15 +1,13 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders  } from '@angular/common/http';
 import { catchError } from 'rxjs/operators';
-import { BaseService } from "../shared/base.service";
+import { BaseService } from '../shared/base.service';
 import { ConfigService } from '../shared/config.service';
 
 @Injectable({
   providedIn: 'root'
 })
-
-export class TopSecretService extends BaseService {
-
+export class ResourceService extends BaseService {
   constructor(private http: HttpClient, private configService: ConfigService) {    
     super();      
   }
