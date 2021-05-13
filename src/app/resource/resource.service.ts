@@ -2,25 +2,27 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError } from 'rxjs/operators';
 import { BaseService } from '../shared/base.service';
-import { ConfigService } from '../shared/config.service';
+import { AppConfig } from '../shared/config/app.config';
+import { IAppSetting } from '../shared/config/appsetting.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ResourceService extends BaseService {
-  constructor(private http: HttpClient, private configService: ConfigService) {    
-    super();      
+  private _appSetting: IAppSetting = AppConfig.AppSetting;
+
+  constructor(private http: HttpClient) {
+    super();
   }
 
-  fetchTopSecretData(token: string) {   
-    
+  getResouce(token: string) {
     const httpOptions = {
       headers: new HttpHeaders({
-        'Content-Type':  'application/json',
-        'Authorization': token
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
       })
     };
 
-    return this.http.get(this.configService.resourceApiURI + '/values', httpOptions).pipe(catchError(this.handleError));
+    return this.http.get(this._appSetting.api.apiUrl + '/resource/get', httpOptions).pipe(catchError(this.handleError));
   }
 }

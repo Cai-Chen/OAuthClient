@@ -11,23 +11,31 @@ import { ResourceService } from '../resource.service';
 })
 export class IndexComponent implements OnInit {
 
-  claims = null;
+  msg = null;
   busy: boolean;
 
   constructor(private authService: AuthService, private resourceService: ResourceService, private spinner: NgxSpinnerService) {
   }
 
   ngOnInit() {
+    this.getResource();
+  }
+
+  getResource() {
     this.busy = true;
     this.spinner.show();
-    this.resourceService.fetchTopSecretData(this.authService.authorizationHeaderValue)
+    this.resourceService.getResouce(this.authService.authorizationHeaderValue)
       .pipe(finalize(() => {
         this.spinner.hide();
         this.busy = false;
       })).subscribe(
         result => {
-          this.claims = result;
+          this.msg = result;
         });
+  }
+
+  refresh() {
+    this.getResource();
   }
 
 }

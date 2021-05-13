@@ -1,32 +1,22 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { User, UserManager, UserManagerSettings } from 'oidc-client';
 import { catchError } from 'rxjs/operators';
-import { UserManager, UserManagerSettings, User } from 'oidc-client';
-import { BehaviorSubject } from 'rxjs';
-
+import { AppConfig } from 'src/app/shared/config/app.config';
+import { IAppSetting } from 'src/app/shared/config/appsetting.model';
 import { BaseService } from "../../shared/base.service";
-import { ConfigService } from '../../shared/config.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService extends BaseService {
 
-  // Observable navItem source
-  private _authNavStatusSource = new BehaviorSubject<boolean>(false);
-  // Observable navItem stream
-  authNavStatus$ = this._authNavStatusSource.asObservable();
-
-  private manager = new UserManager(getClientSettings());
+  private _appSetting: IAppSetting = AppConfig.AppSetting;
+  private manager = new UserManager(this.getClientSettings());
   private user: User | null;
 
-  constructor(private http: HttpClient, private configService: ConfigService) {
+  constructor(private http: HttpClient) {
     super();
-
-    this.manager.getUser().then(user => {
-      this.user = user;
-      this._authNavStatusSource.next(this.isAuthenticated());
-    });
   }
 
   login() {
@@ -35,41 +25,42 @@ export class AuthService extends BaseService {
 
   async completeAuthentication() {
     this.user = await this.manager.signinRedirectCallback();
-    this._authNavStatusSource.next(this.isAuthenticated());
+    localStorage.setItem('accessToken', this.user.access_token);
+    localStorage.setItem('name', this.user.profile.name);
   }
 
   register(userRegistration: any) {
-    return this.http.post(this.configService.authApiURI + '/account', userRegistration).pipe(catchError(this.handleError));
+    return this.http.post(this._appSetting.oauth2.authority + '/api/account', userRegistration).pipe(catchError(this.handleError));
   }
 
   isAuthenticated(): boolean {
-    return this.user != null && !this.user.expired;
+    return localStorage.getItem('accessToken') != null;
   }
 
   get authorizationHeaderValue(): string {
-    return `${this.user.token_type} ${this.user.access_token}`;
+    return localStorage.getItem('accessToken');
   }
 
   get name(): string {
-    return this.user != null ? this.user.profile.name : '';
+    return localStorage.getItem('name');
   }
 
   async signout() {
     await this.manager.signoutRedirect();
+    localStorage.clear();
   }
-}
 
-export function getClientSettings(): UserManagerSettings {
-  return {
-    authority: 'https://auth.dev.com.au',
-    client_id: 'web_client_1',
-    redirect_uri: 'http://localhost:4200/auth-callback',
-    post_logout_redirect_uri: 'http://localhost:4200/',
-    response_type: "id_token token",
-    scope: "openid profile api1",
-    filterProtocolClaims: true,
-    loadUserInfo: true,
-    automaticSilentRenew: true,
-    silent_redirect_uri: 'http://localhost:4200/silent-refresh.html'
-  };
+  getClientSettings(): UserManagerSettings {
+    return {
+      authority: this._appSetting.oauth2.authority,
+      client_id: 'web_client_1',
+      redirect_uri: this._appSetting.oauth2.redirect_uri,
+      post_logout_redirect_uri: this._appSetting.oauth2.post_logout_redirect_uri,
+      response_type: "id_token token",
+      scope: "openid profile api1",
+      filterProtocolClaims: true,
+      loadUserInfo: true,
+      automaticSilentRenew: true
+    };
+  }
 }

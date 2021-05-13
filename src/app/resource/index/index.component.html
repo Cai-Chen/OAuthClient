@@ -1,1 +1,14 @@
-<p>Resource page works!</p>
+<div class="container" *ngIf="!busy">
+    <div class="jumbotron mt-3">
+        <div class="row">
+            <h1>Ha, you got this resource</h1>
+        </div>
+        <div>
+            <img src="{{msg.message}}" alt="dog" width="500" height="600">
+        </div>
+    </div>
+    <div class="row">
+        <a class="btn btn-lg btn-primary" (click)="refresh()" href="javascript:void(0)">Refresh &raquo;</a>
+    </div>
+</div>
+<ngx-spinner></ngx-spinner>
