@@ -1,14 +1,11 @@
-<div class="container" *ngIf="!busy">
-    <div class="jumbotron mt-3">
-        <div class="row">
-            <h1>Ha, you got this resource</h1>
-        </div>
-        <div>
-            <img src="{{msg.message}}" alt="dog" width="500" height="600">
-        </div>
-    </div>
-    <div class="row">
-        <a class="btn btn-lg btn-primary" (click)="refresh()" href="javascript:void(0)">Refresh &raquo;</a>
-    </div>
-</div>
-<ngx-spinner></ngx-spinner>
+<div class="row justify-content-center">
+    <div class="col-md-8 text-center" *ngIf="!busy">
+        <h1 class="mt-5">Ha, you got this resource</h1>
+        <img src="{{msg.message}}" class="mb-4" />
+        <p>
+            <button class="btn btn-lg btn-primary" (click)="refresh()">Refresh</button>
+        </p>  
+      </div>
+      <ngx-spinner></ngx-spinner>   
+  </div>
+  
