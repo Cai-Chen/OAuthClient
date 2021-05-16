@@ -1,4 +1,4 @@
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AccountModule } from './account/account.module';
@@ -12,6 +12,7 @@ import { ResourceModule } from './resource/resource.module';
 import { SharedModule } from './shared/shared.module';
 import { ShellModule } from './shell/shell.module';
 import { AppConfigFactory } from './shared/factory/app.config.factory';
+import { RequestExceptionHanlderInterceptor } from './shared/interceptor/request-exception.interceptor';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,11 @@ import { AppConfigFactory } from './shared/factory/app.config.factory';
       deps: [AppConfig],
       multi: true
     },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: RequestExceptionHanlderInterceptor,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })
