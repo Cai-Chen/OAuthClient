@@ -30,6 +30,7 @@ export class RegisterComponent implements OnInit {
     this.authService.register(this.userRegistration)
       .subscribe(res => {
         this.spinner.hide();
+        this.success = true;
       }, err => {
         this.error = err.error.map(e => e.description).join('\n');
       }).add(() => {
