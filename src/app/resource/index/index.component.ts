@@ -7,7 +7,7 @@ import { ResourceService } from '../resource.service';
 @Component({
   selector: 'resource-index',
   templateUrl: './index.component.html',
-  styleUrls: ['./index.component.sass']
+  styleUrls: ['./index.component.scss']
 })
 export class IndexComponent implements OnInit {
 

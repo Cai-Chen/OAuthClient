@@ -1,9 +1,13 @@
 <div class="container">
-  <div class="jumbotron mt-3">
+  <div class="jumbotron mt-3 text-center">
     <h1>OAuth Client Demo</h1>
-    <p class="lead">OAuth/OpenID Connect Demo using Angular, ASP.NET Core and IdentityServer 4</p>
-    <a class="btn btn-lg btn-primary" routerLink="/register" role="button">Signup &raquo;</a>
-    <a class="btn btn-lg btn-primary ml-4" routerLink="/login" role="button">Login &raquo;</a>
-    <a class="btn btn-lg btn-primary ml-4" routerLink="/resource" role="button">Resource &raquo;</a>
+    <div class="col-lg-6 mx-auto">
+      <p class="lead mb-4">OAuth/OpenID Connect Demo using Angular, ASP.NET Core and IdentityServer 4</p>
+      <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+        <a class="btn btn-primary btn-lg px-4 gap-3" routerLink="/register" role="button">Signup</a>
+        <a class="btn btn-outline-secondary btn-lg px-4" routerLink="/login">Login</a>
+        <a class="btn btn-outline-secondary btn-lg px-4" routerLink="/resource">Resource</a>
+      </div>
+    </div>
   </div>
 </div>

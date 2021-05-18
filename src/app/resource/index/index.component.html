@@ -1,11 +1,10 @@
-<div class="row justify-content-center">
-    <div class="col-md-8 text-center" *ngIf="!busy">
-        <h1 class="mt-5">Ha, you got this resource</h1>
-        <img src="{{msg.message}}" class="mb-4" />
-        <p>
-            <button class="btn btn-lg btn-primary" (click)="refresh()">Refresh</button>
-        </p>  
-      </div>
-      <ngx-spinner></ngx-spinner>   
-  </div>
-  
+<div class="container">
+    <div class="jumbotron mt-3 text-center" *ngIf="!busy">
+        <h1>Ha, you got this resource</h1>
+        <img src="{{msg.message}}" class="img-fluid border rounded-3 shadow-lg mb-4" alt="Doggy image" loading="lazy">
+        <div class="d-grid gap-2 d-sm-flex justify-content-sm-center mb-5">
+            <button type="button" class="btn btn-primary btn-lg px-4 me-sm-3" (click)="refresh()">Refresh</button>
+        </div>
+    </div>
+    <ngx-spinner></ngx-spinner>
+</div>

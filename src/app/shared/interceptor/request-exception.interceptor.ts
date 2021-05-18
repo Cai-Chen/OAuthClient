@@ -28,7 +28,7 @@ export class RequestExceptionHanlderInterceptor implements HttpInterceptor {
                     this.router.navigate(["/login"]);
                 }
 
-                return throwError(this.error);
+                return next.handle(request);
             })
         );
     }

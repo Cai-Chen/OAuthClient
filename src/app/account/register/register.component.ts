@@ -28,17 +28,12 @@ export class RegisterComponent implements OnInit {
     this.spinner.show();
 
     this.authService.register(this.userRegistration)
-      .pipe(finalize(() => {
+      .subscribe(res => {
         this.spinner.hide();
-      }))
-      .subscribe(
-        result => {
-          if (result) {
-            this.success = true;
-          }
-        },
-        error => {
-          this.error = error;
-        });
+      }, err => {
+        this.error = err.error.map(e => e.description).join('\n');
+      }).add(() => {
+        this.spinner.hide();
+      });
   }
 }

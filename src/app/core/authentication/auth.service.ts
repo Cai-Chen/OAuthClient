@@ -30,7 +30,7 @@ export class AuthService extends BaseService {
   }
 
   register(userRegistration: any) {
-    return this.http.post(this._appSetting.oauth2.authority + '/api/account', userRegistration).pipe(catchError(this.handleError));
+    return this.http.post(this._appSetting.oauth2.authority + '/api/account', userRegistration);
   }
 
   isAuthenticated(): boolean {

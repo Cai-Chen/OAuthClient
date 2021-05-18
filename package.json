@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng build --watch",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
@@ -20,7 +20,7 @@
     "@angular/platform-browser": "~8.2.14",
     "@angular/platform-browser-dynamic": "~8.2.14",
     "@angular/router": "~8.2.14",
-    "bootstrap": "^4.3.1",
+    "bootstrap": "^5.0.1",
     "core-js": "^2.6.9",
     "ngx-spinner": "^7.2.0",
     "oidc-client": "^1.9.1",
